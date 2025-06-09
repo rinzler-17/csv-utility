@@ -1,4 +1,4 @@
-## CSV Processing utiliy
+## CSV Processing utility
 This is a simple project to process a CSV file implemented using dask library (https://docs.dask.org/en/latest/install.html) in Python. Dask dataframes have interface similar to pandas and support chunked processing and parallelism to handle large files.
 
 Sample csv file is at `resources/data.csv`
