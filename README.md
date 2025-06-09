@@ -1,13 +1,13 @@
 ## CSV Processing utiliy
-This is a simple project to process a CSV file implemented using pandas library in Python.
+This is a simple project to process a CSV file implemented using dask library (https://docs.dask.org/en/latest/install.html) in Python. Dask dataframes have interface similar to pandas and support chunked processing and parallelism to handle large files.
 
 Sample csv file is at `resources/data.csv`
 
 ## Instructions
 Please ensure you have `Python` and `pip` installed in your localhost.
-To install pandas, run
+To install dask, run
     
-    $ pip install pandas
+    $ pip install dask[complete]
 
 ## Running the Code
     $ python main.py
@@ -15,6 +15,3 @@ To install pandas, run
 To run tests
 
     $ python tests.py
-
-## Possible improvements
-To handle large files, the code can be ported to use the Dask library APIs (https://docs.dask.org/en/latest/install.html) which has interface similar to pandas and supports chunked processing and parallelism.

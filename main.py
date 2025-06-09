@@ -8,15 +8,15 @@ def main():
 
     print("\n== Filter: Quantity > 10 ==")
     filtered = tool.filter_rows("Quantity", ">", 10)
-    print(filtered)
+    print(filtered.compute())
 
     print("\n== Filter: Product containing substring \"an\" ==")
     filtered = tool.filter_rows("Product", "contains", "an")
-    print(filtered)
+    print(filtered.compute())
 
     print("\n== Sort by Price Descending ==")
     sorted_df = tool.sort_rows("Price", descending=True)
-    print(sorted_df)
+    print(sorted_df.compute())
 
     print("\n== Aggregate: Average Quantity ==")
     avg = tool.aggregate_column("Quantity", "avg")
