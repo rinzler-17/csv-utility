@@ -24,8 +24,13 @@ class CSVTool:
         print(f"Loaded and cleaned CSV with {self.df.shape[1]} columns.")
 
     def clean_csv_dataframe(self):
+        # Strip whitespace from headers
         self.df.columns = [col.strip() for col in self.df.columns]
+
+        # Strip whitespaces in string cells
         self.df = self.df.map_partitions(lambda df: df.map(lambda x: x.strip() if isinstance(x, str) else x))
+
+        # Convert blank strings to NaN
         self.df = self.df.replace(r'^\s*$', np.nan, regex=True)
 
         # Convert columns with ≥60% numeric values to float
