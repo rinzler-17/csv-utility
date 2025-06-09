@@ -1,9 +1,62 @@
 import pandas as pd
+import numpy as np
 
 class CSVTool:
     def __init__(self, filepath: str):
         self.filepath = filepath
         self.df = pd.read_csv(filepath)
+
+        try:
+            self.df = pd.read_csv(
+                filepath,
+                skip_blank_lines=True,
+                on_bad_lines='skip'
+            )
+        except Exception as e:
+            print(f"Error reading CSV file: {e}")
+            return None
+
+        self.clean_csv_dataframe()
+
+        print(f"Loaded and cleaned CSV with {self.df.shape[0]} rows and {self.df.shape[1]} columns.")
+
+    def clean_csv_dataframe(self):
+        """
+        Cleans a DataFrame:
+        - Drops fully empty rows
+        - Strips whitespace from headers and cell values
+        - Converts empty strings to NaN
+        - Converts numeric columns to proper dtype (if possible)
+        """
+        # Record shape before cleaning
+        initial_shape = self.df.shape
+
+        # Strip whitespace from headers
+        self.df.columns = self.df.columns.str.strip()
+
+        # Convert blank strings to NaN
+        self.df.replace(r'^\s*$', np.nan, regex=True, inplace=True)
+
+        # Strip whitespace from string cells
+        self.df = self.df.map(lambda x: x.strip() if isinstance(x, str) else x)
+
+        for col in self.df.columns:
+            # Try to convert to numeric with coercion
+            converted = pd.to_numeric(self.df[col], errors='coerce')
+            numeric_ratio = converted.notna().mean()
+            
+            if numeric_ratio >= 0.6:    # if 60% values are numeric, the column's dtype is numeric, replace other value by NaN
+                self.df[col] = converted
+
+        # Remove rows containing NaN
+        self.df.dropna(how='any', inplace=True)
+
+        dropped_rows = initial_shape[0] - self.df.shape[0]
+        if dropped_rows > 0:
+            print(f"Dropped {dropped_rows} empty row(s).")
+        
+        print(self.df)
+
 
     def display_rows(self, count=3):
         print(self.df.head(count))
