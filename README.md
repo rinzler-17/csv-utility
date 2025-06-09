@@ -1,6 +1,8 @@
 ## CSV Processing utiliy
 This is a simple project to process a CSV file implemented using pandas library in Python.
 
+Sample csv file is at `resources/data.csv`
+
 ## Instructions
 Please ensure you have `Python` and `pip` installed in your localhost.
 To install pandas, run
