@@ -24,7 +24,7 @@ class TestCSVTool(unittest.TestCase):
 
     def test_palindromes(self):
         count = self.tool.count_valid_palindromes()
-        self.assertIsInstance(count, int)
+        self.assertEqual(count, 1)
 
 if __name__ == "__main__":
     unittest.main()
